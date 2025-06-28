@@ -1,0 +1,22 @@
+<div class="content-inner action-bar">
+  <div class="icon-buttons">
+    <button class="icon-button" aria-label="Add">
+      <i class="fa fa-plus"></i>
+    </button>
+    <button class="icon-button" aria-label="Add Folder">
+      <i class="fa fa-folder-plus"></i>
+    </button>
+    <button class="icon-button" 
+            [class.active]="currentViewMode === 'grid'"
+            (click)="setGridView()" 
+            aria-label="Grid View">
+      <i class="fa fa-th"></i>
+    </button>
+    <button class="icon-button" 
+            [class.active]="currentViewMode === 'list'"
+            (click)="setListView()" 
+            aria-label="List View">
+      <i class="fa fa-list-ul"></i>
+    </button>
+  </div>
+</div>

@@ -18,6 +18,53 @@ body {
   padding: 0;
 }
 
+/* Application container with max-width */
+.app-container {
+  max-width: 1440px;
+  margin: 0 auto;
+  width: 100%;
+  min-height: 100vh;
+  background-color: rgb(240, 241, 243);
+}
+
+.content-inner {
+  max-width: 1440px;
+  margin: 0 auto;
+  width: 100%;
+  padding-left: 32px;
+  padding-right: 32px;
+}
+
+.header {
+  max-height: 100%;
+  height: 350px;
+  padding-bottom: 100px;
+}
+
+.pt-20 {
+  padding-top: 20px;
+}
+
+.icon-buttons {
+  display: flex;
+  justify-content: flex-end;
+  gap: 16px;
+  align-items: center;
+}
+
+.icon-button {
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 1.5rem;
+  color: #23395d;
+  transition: color 0.2s;
+}
+
+.icon-button:hover {
+  color: #667eea;
+}
+
 .sidebar {
   min-height: 100vh;
   background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
@@ -29,15 +76,16 @@ body {
 }
 
 .card {
+  /* Remove global card effects for all cards */
   border: none;
-  border-radius: 10px;
-  box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075);
-  transition: transform 0.2s ease-in-out;
+  border-radius: 0 !important;
+  box-shadow: none !important;
+  transition: none !important;
 }
 
 .card:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15);
+  transform: none !important;
+  box-shadow: none !important;
 }
 
 .stat-card {
