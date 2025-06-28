@@ -29,7 +29,7 @@
   background: white;
   border-radius: 8px;
   box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
-  max-height: 90vh;
+  max-height: 85vh;
   overflow-y: auto;
   position: relative;
   width: 100%;
@@ -75,7 +75,7 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 20px 24px;
+  padding: 16px 20px;
   border-bottom: 1px solid #e5e7eb;
 
   // Type variations
@@ -143,8 +143,8 @@
 
 // Modal Body
 .aj-modal__body {
-  padding: 24px;
-  max-height: 60vh;
+  padding: 20px;
+  max-height: 50vh;
   overflow-y: auto;
 }
 
@@ -153,13 +153,22 @@
   display: flex;
   justify-content: flex-end;
   gap: 12px;
-  padding: 20px 24px;
+  padding: 16px 20px;
   border-top: 1px solid #e5e7eb;
   background-color: #f9fafb;
 
   // If no content in footer, hide it
   &:empty {
     display: none;
+  }
+
+  // Ensure proper spacing between buttons
+  > * {
+    margin-left: 8px;
+    
+    &:first-child {
+      margin-left: 0;
+    }
   }
 }
 
@@ -189,9 +198,11 @@
   .aj-modal__footer {
     padding: 16px 20px;
     flex-direction: column;
+    gap: 8px;
 
     > * {
       width: 100%;
+      margin-left: 0;
     }
   }
 }

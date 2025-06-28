@@ -70,3 +70,24 @@
     }
   }
 }
+
+// Modal Footer Button Spacing
+[modal-footer] {
+  display: flex;
+  gap: 12px;
+  justify-content: flex-end;
+  
+  .btn {
+    min-width: 80px;
+  }
+  
+  // Responsive adjustments
+  @media (max-width: 768px) {
+    flex-direction: column;
+    gap: 8px;
+    
+    .btn {
+      width: 100%;
+    }
+  }
+}
