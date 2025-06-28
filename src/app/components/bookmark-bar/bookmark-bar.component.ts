@@ -17,4 +17,8 @@ export class BookmarkBarComponent implements OnInit {
       this.collections = data;
     });
   }
+
+  toggleFavorite(collection: Collection): void {
+    collection.IsFav = !collection.IsFav;
+  }
 }

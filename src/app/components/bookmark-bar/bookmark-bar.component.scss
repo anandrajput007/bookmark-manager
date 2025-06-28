@@ -22,3 +22,11 @@
 .card:hover .fa-2x {
   color: rgb(255, 212, 59);
 }
+
+.fa-heart {
+  transition: color 0.2s, transform 0.1s;
+}
+.fa-heart:hover {
+  cursor: pointer;
+  transform: scale(1.15);
+}
