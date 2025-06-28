@@ -1,0 +1,87 @@
+<aj-modal 
+  [show]="isOpen"
+  header="Add New Bookmark"
+  type="default"
+  size="md"
+  [showFooter]="true"
+  [closeOnBackdropClick]="true"
+  [closeOnEsc]="true"
+  [showCloseButton]="true"
+  [animation]="true"
+  (closeModal)="close()">
+  
+  <div modal-body>
+    <form [formGroup]="bookmarkForm">
+      <!-- Collection Selection -->
+      <div class="form-group">
+        <label for="collectionSelect">Select Collection</label>
+        <select 
+          id="collectionSelect"
+          class="form-control" 
+          formControlName="collectionId">
+          <option value="">Choose a collection...</option>
+          <option *ngFor="let collection of sortedCollections" 
+                  [value]="collection.Name">
+            {{ collection.Name }}
+          </option>
+        </select>
+        <div class="error-message" *ngIf="bookmarkForm.get('collectionId')?.invalid && bookmarkForm.get('collectionId')?.touched">
+          <span *ngIf="bookmarkForm.get('collectionId')?.errors?.['required']">Please select a collection</span>
+        </div>
+      </div>
+
+      <!-- Bookmark Name -->
+      <div class="form-group">
+        <label for="bookmarkName">Bookmark Name</label>
+        <input type="text" 
+               id="bookmarkName"
+               class="form-control" 
+               formControlName="name"
+               placeholder="Enter bookmark name">
+        <div class="error-message" *ngIf="bookmarkForm.get('name')?.invalid && bookmarkForm.get('name')?.touched">
+          <span *ngIf="bookmarkForm.get('name')?.errors?.['required']">Bookmark name is required</span>
+          <span *ngIf="bookmarkForm.get('name')?.errors?.['minlength']">Bookmark name must be at least 2 characters</span>
+        </div>
+      </div>
+
+      <!-- URL -->
+      <div class="form-group">
+        <label for="bookmarkUrl">URL</label>
+        <input type="url" 
+               id="bookmarkUrl"
+               class="form-control" 
+               formControlName="url"
+               placeholder="https://example.com">
+        <div class="error-message" *ngIf="bookmarkForm.get('url')?.invalid && bookmarkForm.get('url')?.touched">
+          <span *ngIf="bookmarkForm.get('url')?.errors?.['required']">URL is required</span>
+          <span *ngIf="bookmarkForm.get('url')?.errors?.['pattern']">Please enter a valid URL starting with http:// or https://</span>
+        </div>
+      </div>
+
+      <!-- Icon Picker -->
+      <div class="form-group">
+        <label>Icon</label>
+        <aj-icon-picker 
+          [data]="availableIcons"
+          [enableNavigation]="true"
+          [initialValue]="selectedIcon"
+          (iconSelected)="onIconSelected($event)">
+        </aj-icon-picker>
+      </div>
+    </form>
+  </div>
+  
+  <div modal-footer>
+    <button type="button" 
+            class="btn btn-secondary" 
+            (click)="close()">
+      Cancel
+    </button>
+    <button type="button" 
+            class="btn btn-primary" 
+            [disabled]="bookmarkForm.invalid"
+            (click)="save()">
+      Save
+    </button>
+  </div>
+</aj-modal>

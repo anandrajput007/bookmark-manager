@@ -9,6 +9,7 @@ import { CollectionService, ViewMode } from '../../services/dashboard/collection
 export class ActionBarComponent {
   currentViewMode: ViewMode = 'grid';
   showAddCollectionModal = false;
+  showAddBookmarkModal = false;
 
   constructor(private collectionService: CollectionService) {
     this.collectionService.viewMode$.subscribe(mode => {
@@ -22,6 +23,20 @@ export class ActionBarComponent {
 
   setListView(): void {
     this.collectionService.setViewMode('list');
+  }
+
+  openAddBookmarkModal(): void {
+    this.showAddBookmarkModal = true;
+  }
+
+  closeAddBookmarkModal(): void {
+    this.showAddBookmarkModal = false;
+  }
+
+  onSaveBookmark(bookmarkData: any): void {
+    console.log('New bookmark data:', bookmarkData);
+    // Here you would typically save the bookmark to your service
+    this.closeAddBookmarkModal();
   }
 
   openAddCollectionModal(): void {
