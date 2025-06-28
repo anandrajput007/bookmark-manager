@@ -3,7 +3,9 @@
     <button class="icon-button" aria-label="Add">
       <i class="fa fa-plus"></i>
     </button>
-    <button class="icon-button" aria-label="Add Folder">
+    <button class="icon-button" 
+            (click)="openAddCollectionModal()" 
+            aria-label="Add Folder">
       <i class="fa fa-folder-plus"></i>
     </button>
     <button class="icon-button" 
@@ -20,3 +22,10 @@
     </button>
   </div>
 </div>
+
+<!-- Add Collection Modal -->
+<app-add-collection 
+  [isOpen]="showAddCollectionModal"
+  (closeModal)="closeAddCollectionModal()"
+  (saveCollection)="onSaveCollection($event)">
+</app-add-collection>
