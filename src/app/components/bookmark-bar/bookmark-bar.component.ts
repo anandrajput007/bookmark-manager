@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Collection } from '../services/dashboard/collection.service';
+import { Collection } from '../../services/dashboard/collection.service';
 
 @Component({
   selector: 'app-bookmark-bar',

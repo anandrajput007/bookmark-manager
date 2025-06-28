@@ -6,9 +6,9 @@ import { HttpClientModule } from '@angular/common/http';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { DashboardComponent } from './dashboard/dashboard.component';
-import { ActionBarComponent } from './action-bar/action-bar.component';
-import { BookmarkBarComponent } from './bookmark-bar/bookmark-bar.component';
+import { DashboardComponent } from './components/dashboard/dashboard.component';
+import { ActionBarComponent } from './components/action-bar/action-bar.component';
+import { BookmarkBarComponent } from './components/bookmark-bar/bookmark-bar.component';
 
 @NgModule({
   declarations: [
