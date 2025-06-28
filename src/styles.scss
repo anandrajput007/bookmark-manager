@@ -76,15 +76,16 @@ body {
 }
 
 .card {
+  /* Remove global card effects for all cards */
   border: none;
-  border-radius: 10px;
-  box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075);
-  transition: transform 0.2s ease-in-out;
+  border-radius: 0 !important;
+  box-shadow: none !important;
+  transition: none !important;
 }
 
 .card:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15);
+  transform: none !important;
+  box-shadow: none !important;
 }
 
 .stat-card {

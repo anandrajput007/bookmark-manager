@@ -1,0 +1,24 @@
+.bookmark-bar {
+    padding-top: 16px;
+    padding-bottom: 16px;
+}
+
+.card {
+  border-radius: 0 !important;
+  border: 1px solid #fff;
+  transition: border-color 0.2s;
+  box-shadow: none !important;
+}
+
+.card:hover {
+  border-color: rgb(255, 212, 59);
+  box-shadow: none !important;
+}
+.card-title {
+    font-size: 14px;
+}
+
+.card:hover .card-title,
+.card:hover .fa-2x {
+  color: rgb(255, 212, 59);
+}
