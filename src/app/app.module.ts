@@ -13,6 +13,7 @@ import { ActionBarComponent } from './components/action-bar/action-bar.component
 import { BookmarkBarComponent } from './components/bookmark-bar/bookmark-bar.component';
 import { AddCollectionComponent } from './components/add-collection/add-collection.component';
 import { AjIconPickerComponent } from './aj-components/aj-icon-picker/aj-icon-picker.component';
+import { AjModalComponent } from './aj-components/aj-modal/aj-modal.component';
 
 @NgModule({
   declarations: [
@@ -21,7 +22,8 @@ import { AjIconPickerComponent } from './aj-components/aj-icon-picker/aj-icon-pi
     ActionBarComponent,
     BookmarkBarComponent,
     AddCollectionComponent,
-    AjIconPickerComponent
+    AjIconPickerComponent,
+    AjModalComponent
   ],
   imports: [
     BrowserModule,

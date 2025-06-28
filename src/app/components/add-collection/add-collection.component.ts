@@ -55,11 +55,4 @@ export class AddCollectionComponent {
       this.close();
     }
   }
-
-  // Close modal when clicking outside
-  onBackdropClick(event: Event): void {
-    if (event.target === event.currentTarget) {
-      this.close();
-    }
-  }
 }

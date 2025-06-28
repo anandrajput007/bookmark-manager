@@ -1,0 +1,31 @@
+<div class="aj-modal" 
+     [class]="modalClasses"
+     *ngIf="show"
+     (click)="onBackdropClick($event)">
+  
+  <div class="aj-modal__content" [class]="modalContentClasses">
+    
+    <!-- Header -->
+    <div class="aj-modal__header" [class]="headerClasses">
+      <h3 class="aj-modal__title">{{ header }}</h3>
+      <button *ngIf="showCloseButton" 
+              type="button" 
+              class="aj-modal__close-btn" 
+              (click)="close()"
+              aria-label="Close modal">
+        <i class="fa fa-times"></i>
+      </button>
+    </div>
+    
+    <!-- Body -->
+    <div class="aj-modal__body">
+      <ng-content select="[modal-body]"></ng-content>
+    </div>
+    
+    <!-- Footer -->
+    <div class="aj-modal__footer" *ngIf="showFooter">
+      <ng-content select="[modal-footer]"></ng-content>
+    </div>
+    
+  </div>
+</div>

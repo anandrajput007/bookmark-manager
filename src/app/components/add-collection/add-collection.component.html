@@ -1,58 +1,55 @@
-<!-- Modal Backdrop -->
-<div class="modal-backdrop" 
-     *ngIf="isOpen" 
-     (click)="onBackdropClick($event)">
+<aj-modal 
+  [show]="isOpen"
+  header="Add New Collection"
+  type="default"
+  size="md"
+  [showFooter]="true"
+  [closeOnBackdropClick]="true"
+  [closeOnEsc]="true"
+  [showCloseButton]="true"
+  [animation]="true"
+  (closeModal)="close()">
   
-  <!-- Modal Content -->
-  <div class="modal-content">
-    <div class="modal-header">
-      <h5 class="modal-title">Add New Collection</h5>
-      <button type="button" class="close-btn" (click)="close()">
-        <i class="fa fa-times"></i>
-      </button>
-    </div>
-    
-    <div class="modal-body">
-      <form [formGroup]="collectionForm">
-        <!-- Collection Name -->
-        <div class="form-group">
-          <label for="collectionName">Collection Name</label>
-          <input type="text" 
-                 id="collectionName"
-                 class="form-control" 
-                 formControlName="name"
-                 placeholder="Enter collection name">
-          <div class="error-message" *ngIf="collectionForm.get('name')?.invalid && collectionForm.get('name')?.touched">
-            <span *ngIf="collectionForm.get('name')?.errors?.['required']">Collection name is required</span>
-            <span *ngIf="collectionForm.get('name')?.errors?.['minlength']">Collection name must be at least 2 characters</span>
-          </div>
+  <div modal-body>
+    <form [formGroup]="collectionForm">
+      <!-- Collection Name -->
+      <div class="form-group">
+        <label for="collectionName">Collection Name</label>
+        <input type="text" 
+               id="collectionName"
+               class="form-control" 
+               formControlName="name"
+               placeholder="Enter collection name">
+        <div class="error-message" *ngIf="collectionForm.get('name')?.invalid && collectionForm.get('name')?.touched">
+          <span *ngIf="collectionForm.get('name')?.errors?.['required']">Collection name is required</span>
+          <span *ngIf="collectionForm.get('name')?.errors?.['minlength']">Collection name must be at least 2 characters</span>
         </div>
+      </div>
 
-        <!-- Icon Picker -->
-        <div class="form-group">
-          <label>Icon</label>
-          <aj-icon-picker 
-            [data]="availableIcons"
-            [enableNavigation]="true"
-            [initialValue]="selectedIcon"
-            (iconSelected)="onIconSelected($event)">
-          </aj-icon-picker>
-        </div>
-      </form>
-    </div>
-    
-    <div class="modal-footer">
-      <button type="button" 
-              class="btn btn-secondary" 
-              (click)="close()">
-        Cancel
-      </button>
-      <button type="button" 
-              class="btn btn-primary" 
-              [disabled]="collectionForm.invalid"
-              (click)="save()">
-        Save
-      </button>
-    </div>
+      <!-- Icon Picker -->
+      <div class="form-group">
+        <label>Icon</label>
+        <aj-icon-picker 
+          [data]="availableIcons"
+          [enableNavigation]="true"
+          [initialValue]="selectedIcon"
+          (iconSelected)="onIconSelected($event)">
+        </aj-icon-picker>
+      </div>
+    </form>
   </div>
-</div>
+  
+  <div modal-footer>
+    <button type="button" 
+            class="btn btn-secondary" 
+            (click)="close()">
+      Cancel
+    </button>
+    <button type="button" 
+            class="btn btn-primary" 
+            [disabled]="collectionForm.invalid"
+            (click)="save()">
+      Save
+    </button>
+  </div>
+</aj-modal>
