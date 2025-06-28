@@ -1,0 +1,349 @@
+/* Dashboard specific styles */
+@media (max-width: 768px) {
+  .sidebar {
+    position: fixed;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100vh;
+    z-index: 1000;
+    transition: left 0.3s ease;
+  }
+
+  .sidebar.show {
+    left: 0;
+  }
+
+  .main-content {
+    margin-left: 0;
+    width: 100%;
+  }
+
+  .stat-card .stat-number {
+    font-size: 1.5rem;
+  }
+
+  .stat-card .stat-icon {
+    font-size: 2rem;
+  }
+
+  .btn-toolbar {
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  .btn-toolbar .btn-group {
+    width: 100%;
+  }
+
+  .btn-toolbar .btn {
+    width: 100%;
+    margin-bottom: 0.25rem;
+  }
+}
+
+@media (max-width: 576px) {
+  .stat-card .card-body {
+    padding: 1rem;
+  }
+
+  .stat-card .stat-number {
+    font-size: 1.25rem;
+  }
+
+  .stat-card .stat-label {
+    font-size: 0.75rem;
+  }
+
+  .table-responsive {
+    font-size: 0.875rem;
+  }
+
+  .card-header h5 {
+    font-size: 1rem;
+  }
+}
+
+/* Mobile menu toggle button */
+.mobile-menu-toggle {
+  display: none;
+  position: fixed;
+  top: 1rem;
+  left: 1rem;
+  z-index: 1001;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  border: none;
+  color: white;
+  padding: 0.5rem;
+  border-radius: 0.25rem;
+}
+
+@media (max-width: 768px) {
+  .mobile-menu-toggle {
+    display: block;
+  }
+}
+
+/* Overlay for mobile menu */
+.sidebar-overlay {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 999;
+}
+
+.sidebar-overlay.show {
+  display: block;
+}
+
+/* Animation for cards */
+.card {
+  animation: fadeInUp 0.6s ease-out;
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Stagger animation for stat cards */
+.stat-card:nth-child(1) { animation-delay: 0.1s; }
+.stat-card:nth-child(2) { animation-delay: 0.2s; }
+.stat-card:nth-child(3) { animation-delay: 0.3s; }
+.stat-card:nth-child(4) { animation-delay: 0.4s; }
+
+.header {
+    height: 300px;
+    background: linear-gradient(to right, #6AC0C4, #ED8664);
+    padding: 32px;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    max-width: 1260px;
+    margin: 0 auto;
+}
+
+.header-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.logo {
+    font-size: 16px;
+    color: #FFFFFF;
+    font-weight: 400;
+    text-transform: capitalize;
+}
+
+.nav-buttons {
+    display: flex;
+    gap: 16px;
+}
+
+.nav-button {
+    background-color: transparent;
+    color: #FFFFFF;
+    padding: 12px;
+    border-radius: 50%;
+    font-size: 14px;
+    font-weight: 400;
+    text-align: center;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    border: 1px solid #ffffff3d;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 44px;
+    height: 44px;
+}
+
+.nav-button:hover {
+    background-color: #efdede8a;
+    color: #333333;
+    opacity: 0.8;
+}
+
+.nav-button i {
+    font-size: 16px;
+    font-family: 'Font Awesome 5 Free';
+    font-weight: 900;
+}
+
+.header-heading {
+    font-size: 40px;
+    font-weight: 400;
+    color: #090505;
+    text-align: center;
+    margin: 0;
+    margin-bottom: 40px; /* Gap between h1 and search bar */
+}
+
+.search-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 20px; /* Additional spacing */
+}
+
+.search-wrapper {
+    position: relative;
+    width: 90%;
+    max-width: 960px;
+}
+
+.search-input {
+    width: 100%;
+    padding: 15px 60px 15px 20px;
+    border: 2px solid rgba(255, 255, 255, 0.3);
+    border-radius: 50px;
+    font-size: 16px;
+    outline: none;
+    background-color: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(10px);
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+    padding-right: 120px;
+}
+
+.search-input:focus {
+    border-color: #FFFFFF;
+    background-color: #FFFFFF;
+    box-shadow: 0 6px 25px rgba(0, 0, 0, 0.15);
+}
+
+.search-input::placeholder {
+    color: #666;
+    font-style: italic;
+}
+
+.search-button {
+    position: absolute;
+    right: 5px;
+    top: 50%;
+    transform: translateY(-50%);
+    background: linear-gradient(135deg, #6AC0C4 0%, #ED8664 100%);
+    border: none;
+    border-radius: 0 50px 50px 0 ;
+    width: 100px;
+    height: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.search-button:hover {
+    transform: translateY(-50%) scale(1.05);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+}
+
+.search-button:active {
+    transform: translateY(-50%) scale(0.95);
+}
+
+.search-button i {
+    font-size: 18px;
+    font-family: 'Font Awesome 5 Free';
+    font-weight: 900;
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+    .header {
+        padding: 24px 20px;
+        height: auto;
+        min-height: 280px;
+    }
+    
+    .header-heading {
+        font-size: 20px;
+        margin-bottom: 30px;
+    }
+    
+    .search-wrapper {
+        width: 95%;
+    }
+    
+    .search-input {
+        padding: 12px 55px 12px 15px;
+        font-size: 14px;
+    }
+    
+    .search-button {
+        width: 45px;
+        height: 45px;
+    }
+    
+    .search-button i {
+        font-size: 16px;
+    }
+    
+    .nav-buttons {
+        gap: 12px;
+    }
+    
+    .nav-button {
+        width: 40px;
+        height: 40px;
+        padding: 10px;
+    }
+    
+    .nav-button i {
+        font-size: 14px;
+    }
+}
+
+@media (max-width: 480px) {
+    .header {
+        padding: 20px 16px;
+        min-height: 260px;
+    }
+    
+    .header-heading {
+        font-size: 18px;
+        margin-bottom: 25px;
+    }
+    
+    .search-input {
+        padding: 10px 50px 10px 15px;
+        font-size: 14px;
+    }
+    
+    .search-button {
+        width: 40px;
+        height: 40px;
+    }
+    
+    .search-button i {
+        font-size: 14px;
+    }
+    
+    .logo {
+        font-size: 14px;
+    }
+    
+    .nav-button {
+        width: 36px;
+        height: 36px;
+        padding: 8px;
+    }
+    
+    .nav-button i {
+        font-size: 13px;
+    }
+}
