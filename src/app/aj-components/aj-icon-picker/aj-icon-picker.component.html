@@ -1,0 +1,36 @@
+<div class="icon-picker">
+  <div class="selected-icon" (click)="toggleIconPicker()">
+    <i class="fa {{ selectedIcon || 'fa-folder' }}"></i>
+    <i class="fa fa-chevron-down toggle-arrow" [class.rotated]="showIconPicker"></i>
+  </div>
+  
+  <div *ngIf="showIconPicker">
+    <form [formGroup]="searchForm">
+      <input type="text" 
+             class="form-control icon-search-box" 
+             placeholder="Search icon..." 
+             formControlName="search" />
+    </form>
+    
+    <div class="icon-grid">
+      <div class="icon-item" 
+           *ngFor="let icon of pagedIcons"
+           [class.selected]="selectedIcon === icon"
+           (click)="selectIcon(icon)"
+           [attr.title]="icon">
+        <i class="fa {{ icon }}"></i>
+      </div>
+    </div>
+    
+    <!-- Navigation controls - only show if enableNavigation is true -->
+    <div class="icon-pagination" *ngIf="enableNavigation && totalPages > 1">
+      <button type="button" class="icon-nav-btn" (click)="prevPage()" [disabled]="currentPage === 0">
+        <i class="fa fa-chevron-left"></i>
+      </button>
+      <span class="icon-page-info">{{ currentPage + 1 }} / {{ totalPages }}</span>
+      <button type="button" class="icon-nav-btn" (click)="nextPage()" [disabled]="currentPage >= totalPages - 1">
+        <i class="fa fa-chevron-right"></i>
+      </button>
+    </div>
+  </div>
+</div>
