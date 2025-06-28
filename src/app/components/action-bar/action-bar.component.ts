@@ -8,6 +8,7 @@ import { CollectionService, ViewMode } from '../../services/dashboard/collection
 })
 export class ActionBarComponent {
   currentViewMode: ViewMode = 'grid';
+  showAddCollectionModal = false;
 
   constructor(private collectionService: CollectionService) {
     this.collectionService.viewMode$.subscribe(mode => {
@@ -21,5 +22,20 @@ export class ActionBarComponent {
 
   setListView(): void {
     this.collectionService.setViewMode('list');
+  }
+
+  openAddCollectionModal(): void {
+    this.showAddCollectionModal = true;
+  }
+
+  closeAddCollectionModal(): void {
+    this.showAddCollectionModal = false;
+  }
+
+  onSaveCollection(collectionData: any): void {
+    // Here you would typically save the collection to your backend
+    console.log('New collection data:', collectionData);
+    // For now, we'll just close the modal
+    this.closeAddCollectionModal();
   }
 }

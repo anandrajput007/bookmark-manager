@@ -3,24 +3,30 @@ import { BrowserModule } from '@angular/platform-browser';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { MockApiInterceptor } from './interceptors/mock-api.interceptor';
 import { HttpClientModule } from '@angular/common/http';
+import { ReactiveFormsModule } from '@angular/forms';
+import { FormsModule } from '@angular/forms';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { ActionBarComponent } from './components/action-bar/action-bar.component';
 import { BookmarkBarComponent } from './components/bookmark-bar/bookmark-bar.component';
+import { AddCollectionComponent } from './components/add-collection/add-collection.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     DashboardComponent,
     ActionBarComponent,
-    BookmarkBarComponent
+    BookmarkBarComponent,
+    AddCollectionComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
+    ReactiveFormsModule,
+    FormsModule,
   ],
   providers: [
     {
