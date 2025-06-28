@@ -1,18 +1,17 @@
-# Angular Dashboard
+# Bookmark Manager
 
-A responsive dashboard built with Angular 16, Bootstrap 5, and Font Awesome icons.
+A responsive bookmark management application built with Angular 16, Bootstrap 5, and Font Awesome icons.
 
 ## Features
 
 - **Responsive Design**: Works seamlessly on desktop, tablet, and mobile devices
-- **Modern UI**: Clean and professional dashboard interface
+- **Modern UI**: Clean and professional bookmark management interface
 - **Bootstrap 5**: Latest Bootstrap framework for responsive layouts
 - **Font Awesome**: Beautiful icons throughout the interface
-- **Mobile Menu**: Collapsible sidebar for mobile devices
-- **Statistics Cards**: Animated cards displaying key metrics
-- **Recent Activity Table**: User activity tracking
-- **Quick Actions**: Common actions easily accessible
-- **System Status**: Real-time system monitoring
+- **Collection Management**: Organize bookmarks into collections
+- **Favorite Bookmarks**: Mark and manage favorite bookmarks
+- **Search and Filter**: Easy bookmark discovery and organization
+- **Quick Actions**: Common bookmark actions easily accessible
 
 ## Prerequisites
 
@@ -24,7 +23,7 @@ A responsive dashboard built with Angular 16, Bootstrap 5, and Font Awesome icon
 1. Clone or download this project
 2. Navigate to the project directory:
    ```bash
-   cd angular-dashboard
+   cd bookmark-manager
    ```
 
 3. Install dependencies:
@@ -51,10 +50,15 @@ Run `ng build` to build the project. The build artifacts will be stored in the `
 ```
 src/
 ├── app/
-│   ├── dashboard/
-│   │   ├── dashboard.component.html
-│   │   ├── dashboard.component.scss
-│   │   └── dashboard.component.ts
+│   ├── components/
+│   │   ├── action-bar/
+│   │   ├── bookmark-bar/
+│   │   └── dashboard/
+│   ├── services/
+│   │   └── dashboard/
+│   ├── shared/
+│   │   └── data/
+│   ├── interceptors/
 │   ├── app.component.html
 │   ├── app.component.ts
 │   ├── app.module.ts
@@ -80,7 +84,7 @@ src/
 ## Customization
 
 ### Colors
-The dashboard uses a gradient theme that can be customized in `src/styles.scss`:
+The application uses a gradient theme that can be customized in `src/styles.scss`:
 
 ```scss
 .sidebar {
@@ -93,15 +97,15 @@ The dashboard uses a gradient theme that can be customized in `src/styles.scss`:
 ```
 
 ### Adding New Components
-To add new dashboard components:
+To add new bookmark management components:
 
 1. Generate a new component:
    ```bash
-   ng generate component component-name
+   ng generate component components/component-name
    ```
 
 2. Add the route in `app-routing.module.ts`
-3. Update the sidebar navigation in `dashboard.component.html`
+3. Update the navigation in the appropriate component
 
 ## Browser Support
 
