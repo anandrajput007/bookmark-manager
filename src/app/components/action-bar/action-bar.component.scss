@@ -2,3 +2,32 @@
     padding-top: 32px;
     padding-bottom: 16px;
 }
+
+.icon-buttons {
+    display: flex;
+    gap: 8px;
+}
+
+.icon-button {
+    background: none;
+    border: 1px solid #e5e7eb;
+    padding: 0px 10px;
+    cursor: pointer;
+    transition: all 0.2s;
+    color: #6b7280;
+}
+
+.icon-button:hover {
+    background-color: #f3f4f6;
+    border-color: #d1d5db;
+}
+
+.icon-button.active {
+    background-color: rgb(255, 212, 59);
+    border-color: rgb(255, 212, 59);
+    color: #000;
+}
+
+.icon-button i {
+    font-size: 18px;
+}

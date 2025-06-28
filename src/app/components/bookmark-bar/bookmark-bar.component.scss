@@ -30,3 +30,106 @@
   cursor: pointer;
   transform: scale(1.15);
 }
+
+// Tree View Styles
+.tree-view {
+  .tree-item {
+    margin-bottom: 8px;
+    border: 1px solid #e5e7eb;
+    border-radius: 4px;
+    overflow: hidden;
+  }
+
+  .collection-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 12px 16px;
+    background-color: #f9fafb;
+    cursor: pointer;
+    transition: background-color 0.2s;
+    border-bottom: 1px solid #e5e7eb;
+
+    &:hover {
+      background-color: #f3f4f6;
+    }
+
+    .collection-info {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      flex: 1;
+    }
+
+    .collection-fav {
+      cursor: pointer;
+      transition: color 0.2s, transform 0.1s;
+      
+      &:hover {
+        transform: scale(1.15);
+      }
+    }
+
+    .collection-icon {
+      font-size: 16px;
+      color: #6b7280;
+      width: 20px;
+      text-align: center;
+    }
+
+    .collection-name {
+      font-weight: 500;
+      color: #374151;
+    }
+
+    .fa-plus, .fa-minus {
+      font-size: 14px;
+      transition: color 0.2s;
+    }
+  }
+
+  .collection-content {
+    background-color: #ffffff;
+    
+    .bookmark-item {
+      padding: 8px 16px 8px 48px;
+      border-bottom: 1px solid #f3f4f6;
+      transition: background-color 0.2s;
+
+      &:last-child {
+        border-bottom: none;
+      }
+
+      &:hover {
+        background-color: #f9fafb;
+      }
+
+      .bookmark-info {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+      }
+
+      .bookmark-fav {
+        cursor: pointer;
+        transition: color 0.2s, transform 0.1s;
+        
+        &:hover {
+          transform: scale(1.15);
+        }
+      }
+
+      .bookmark-icon {
+        font-size: 14px;
+        color: #6b7280;
+        width: 16px;
+        text-align: center;
+      }
+
+      .bookmark-name {
+        color: #374151;
+        font-size: 14px;
+      }
+    }
+  }
+}

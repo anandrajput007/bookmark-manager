@@ -1,5 +1,6 @@
 <div class="content-inner bookmark-bar">
-  <div class="row m-0">
+  <!-- Grid View -->
+  <div class="row m-0" *ngIf="currentViewMode === 'grid'">
     <div class="col-6 col-sm-6 col-md-4 col-lg-3 col-xl-2 mb-4" *ngFor="let collection of collections">
       <div class="card position-relative text-center py-4">
         <span class="position-absolute" style="top: 10px; right: 14px; z-index: 2;">
@@ -11,6 +12,38 @@
           <i class="fa {{ collection.Icon }} fa-2x"></i>
         </div>
         <h5 class="card-title mt-3 mb-0">{{ collection.Name }}</h5>
+      </div>
+    </div>
+  </div>
+
+  <!-- List/Tree View -->
+  <div class="tree-view" *ngIf="currentViewMode === 'list'">
+    <div class="tree-item" *ngFor="let collection of collections">
+      <!-- Collection Header -->
+      <div class="collection-header" (click)="toggleCollectionExpansion(collection)">
+        <div class="collection-info">
+          <i class="fa fa-heart collection-fav" 
+             [ngStyle]="{ color: collection.IsFav ? 'rgb(255, 212, 59)' : '#d1d5db' }"
+             (click)="toggleFavorite(collection); $event.stopPropagation()"></i>
+          <i class="fa {{ collection.Icon }} collection-icon"></i>
+          <span class="collection-name">{{ collection.Name }}</span>
+        </div>
+        <i class="fa" 
+           [ngClass]="collection.IsExpanded ? 'fa-minus' : 'fa-plus'"
+           [ngStyle]="{ color: collection.IsExpanded ? 'rgb(255, 212, 59)' : '#6b7280' }"></i>
+      </div>
+      
+      <!-- Collection Content (Bookmarks) -->
+      <div class="collection-content" *ngIf="collection.IsExpanded">
+        <div class="bookmark-item" *ngFor="let bookmark of collection.Bookmarks">
+          <div class="bookmark-info">
+            <i class="fa fa-heart bookmark-fav" 
+               [ngStyle]="{ color: bookmark.IsFav ? 'rgb(255, 212, 59)' : '#d1d5db' }"
+               (click)="toggleBookmarkFavorite(bookmark)"></i>
+            <i class="fa {{ bookmark.Icon }} bookmark-icon"></i>
+            <span class="bookmark-name">{{ bookmark.Name }}</span>
+          </div>
+        </div>
       </div>
     </div>
   </div>

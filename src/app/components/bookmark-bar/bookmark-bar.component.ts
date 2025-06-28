@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Collection } from '../../services/dashboard/collection.service';
+import { Collection, CollectionService, ViewMode } from '../../services/dashboard/collection.service';
 
 @Component({
   selector: 'app-bookmark-bar',
@@ -9,8 +9,16 @@ import { Collection } from '../../services/dashboard/collection.service';
 })
 export class BookmarkBarComponent implements OnInit {
   collections: Collection[] = [];
+  currentViewMode: ViewMode = 'grid';
 
-  constructor(private http: HttpClient) {}
+  constructor(
+    private http: HttpClient,
+    private collectionService: CollectionService
+  ) {
+    this.collectionService.viewMode$.subscribe(mode => {
+      this.currentViewMode = mode;
+    });
+  }
 
   ngOnInit(): void {
     this.http.get<Collection[]>('/api/collections').subscribe(data => {
@@ -20,5 +28,13 @@ export class BookmarkBarComponent implements OnInit {
 
   toggleFavorite(collection: Collection): void {
     collection.IsFav = !collection.IsFav;
+  }
+
+  toggleBookmarkFavorite(bookmark: any): void {
+    bookmark.IsFav = !bookmark.IsFav;
+  }
+
+  toggleCollectionExpansion(collection: Collection): void {
+    this.collectionService.toggleCollectionExpansion(collection, this.collections);
   }
 }
