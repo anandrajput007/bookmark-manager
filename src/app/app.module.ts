@@ -14,6 +14,7 @@ import { BookmarkBarComponent } from './components/bookmark-bar/bookmark-bar.com
 import { AddCollectionComponent } from './components/add-collection/add-collection.component';
 import { AjIconPickerComponent } from './aj-components/aj-icon-picker/aj-icon-picker.component';
 import { AjModalComponent } from './aj-components/aj-modal/aj-modal.component';
+import { AddBookmarkComponent } from './components/add-bookmark/add-bookmark.component';
 
 @NgModule({
   declarations: [
@@ -23,7 +24,8 @@ import { AjModalComponent } from './aj-components/aj-modal/aj-modal.component';
     BookmarkBarComponent,
     AddCollectionComponent,
     AjIconPickerComponent,
-    AjModalComponent
+    AjModalComponent,
+    AddBookmarkComponent
   ],
   imports: [
     BrowserModule,

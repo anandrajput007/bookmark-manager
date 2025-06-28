@@ -1,6 +1,8 @@
 <div class="content-inner action-bar">
   <div class="icon-buttons">
-    <button class="icon-button" aria-label="Add">
+    <button class="icon-button" 
+            (click)="openAddBookmarkModal()" 
+            aria-label="Add">
       <i class="fa fa-plus"></i>
     </button>
     <button class="icon-button" 
@@ -29,3 +31,10 @@
   (closeModal)="closeAddCollectionModal()"
   (saveCollection)="onSaveCollection($event)">
 </app-add-collection>
+
+<!-- Add Bookmark Modal -->
+<app-add-bookmark 
+  [isOpen]="showAddBookmarkModal"
+  (closeModal)="closeAddBookmarkModal()"
+  (saveBookmark)="onSaveBookmark($event)">
+</app-add-bookmark>
