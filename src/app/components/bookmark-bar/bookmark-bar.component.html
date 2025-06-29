@@ -1,47 +1,69 @@
 <div class="content-inner bookmark-bar">
+  <!-- Loading State -->
+  <div class="loading-container" *ngIf="loading">
+    <div class="spinner-border text-primary" role="status">
+      <span class="visually-hidden">Loading...</span>
+    </div>
+  </div>
+
+  <!-- Error State -->
+  <div class="error-container" *ngIf="error">
+    <div class="alert alert-danger" role="alert">
+      {{ error }}
+      <button class="btn btn-sm btn-outline-danger ms-2" (click)="refreshCollections()">
+        Retry
+      </button>
+    </div>
+  </div>
+
   <!-- Grid View -->
-  <div class="row m-0" *ngIf="currentViewMode === 'grid'">
+  <div class="row m-0" *ngIf="currentViewMode === 'grid' && !loading && !error">
     <div class="col-6 col-sm-6 col-md-4 col-lg-3 col-xl-2 mb-4" *ngFor="let collection of collections">
       <div class="card position-relative text-center py-4">
         <span class="position-absolute" style="top: 10px; right: 14px; z-index: 2;">
           <i class="fa fa-heart" 
-             [ngStyle]="{ color: collection.IsFav ? 'rgb(255, 212, 59)' : '#d1d5db', cursor: 'pointer' }"
+             [ngStyle]="{ color: collection.isFav ? 'rgb(255, 212, 59)' : '#d1d5db', cursor: 'pointer' }"
              (click)="toggleFavorite(collection)"></i>
         </span>
         <div class="d-flex justify-content-center align-items-center px-2 mb-2">
-          <i class="fa {{ collection.Icon }} fa-2x"></i>
+          <i class="fa {{ collection.icon }} fa-2x"></i>
         </div>
-        <h5 class="card-title mt-3 mb-0">{{ collection.Name }}</h5>
+        <h5 class="card-title mt-3 mb-0">{{ collection.name }}</h5>
+        <small class="text-muted">{{ collection.bookmarkCount }} bookmarks</small>
       </div>
     </div>
   </div>
 
   <!-- List/Tree View -->
-  <div class="tree-view" *ngIf="currentViewMode === 'list'">
+  <div class="tree-view" *ngIf="currentViewMode === 'list' && !loading && !error">
     <div class="tree-item" *ngFor="let collection of collections">
       <!-- Collection Header -->
       <div class="collection-header" (click)="toggleCollectionExpansion(collection)">
         <div class="collection-info">
           <i class="fa fa-heart collection-fav" 
-             [ngStyle]="{ color: collection.IsFav ? 'rgb(255, 212, 59)' : '#d1d5db' }"
+             [ngStyle]="{ color: collection.isFav ? 'rgb(255, 212, 59)' : '#d1d5db' }"
              (click)="toggleFavorite(collection); $event.stopPropagation()"></i>
-          <i class="fa {{ collection.Icon }} collection-icon"></i>
-          <span class="collection-name">{{ collection.Name }}</span>
+          <i class="fa {{ collection.icon }} collection-icon"></i>
+          <span class="collection-name">{{ collection.name }}</span>
+          <span class="bookmark-count">({{ collection.bookmarkCount }})</span>
         </div>
         <i class="fa" 
-           [ngClass]="collection.IsExpanded ? 'fa-minus' : 'fa-plus'"
-           [ngStyle]="{ color: collection.IsExpanded ? 'rgb(255, 212, 59)' : '#6b7280' }"></i>
+           [ngClass]="collection.isExpanded ? 'fa-minus' : 'fa-plus'"
+           [ngStyle]="{ color: collection.isExpanded ? 'rgb(255, 212, 59)' : '#6b7280' }"></i>
       </div>
       
       <!-- Collection Content (Bookmarks) -->
-      <div class="collection-content" *ngIf="collection.IsExpanded">
-        <div class="bookmark-item" *ngFor="let bookmark of collection.Bookmarks">
+      <div class="collection-content" *ngIf="collection.isExpanded">
+        <div class="bookmark-item" *ngFor="let bookmark of collection.bookmarks">
           <div class="bookmark-info">
             <i class="fa fa-heart bookmark-fav" 
-               [ngStyle]="{ color: bookmark.IsFav ? 'rgb(255, 212, 59)' : '#d1d5db' }"
+               [ngStyle]="{ color: bookmark.isFav ? 'rgb(255, 212, 59)' : '#d1d5db' }"
                (click)="toggleBookmarkFavorite(bookmark)"></i>
-            <i class="fa {{ bookmark.Icon }} bookmark-icon"></i>
-            <span class="bookmark-name">{{ bookmark.Name }}</span>
+            <i class="fa {{ bookmark.icon }} bookmark-icon"></i>
+            <span class="bookmark-name">{{ bookmark.name }}</span>
+            <a [href]="bookmark.url" target="_blank" class="bookmark-url">
+              <i class="fa fa-external-link-alt"></i>
+            </a>
           </div>
         </div>
       </div>

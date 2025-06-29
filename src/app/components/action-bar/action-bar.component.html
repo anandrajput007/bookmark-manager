@@ -1,14 +1,14 @@
 <div class="content-inner action-bar">
   <div class="icon-buttons">
     <button class="icon-button" 
-            (click)="openAddBookmarkModal()" 
-            aria-label="Add">
-      <i class="fa fa-plus"></i>
+            (click)="openAddCollectionModal()" 
+            aria-label="Add Collection">
+      <i class="fa fa-folder-plus"></i>
     </button>
     <button class="icon-button" 
-            (click)="openAddCollectionModal()" 
-            aria-label="Add Folder">
-      <i class="fa fa-folder-plus"></i>
+            (click)="openAddBookmarkModal()" 
+            aria-label="Add Bookmark">
+      <i class="fa fa-plus"></i>
     </button>
     <button class="icon-button" 
             [class.active]="currentViewMode === 'grid'"

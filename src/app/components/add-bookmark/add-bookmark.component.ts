@@ -1,29 +1,36 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, OnDestroy, Output } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { FONT_AWESOME_ICONS } from '../../shared/data/fontawesome-icons';
-import { CollectionService, Collection } from '../../services/dashboard/collection.service';
+import { CollectionsService, Collection, Bookmark } from '../../services/collections.service';
+import { BookmarksService } from '../../services/bookmarks.service';
+import { Subject, takeUntil } from 'rxjs';
 
 @Component({
   selector: 'app-add-bookmark',
   templateUrl: './add-bookmark.component.html',
   styleUrls: ['./add-bookmark.component.scss']
 })
-export class AddBookmarkComponent implements OnInit {
+export class AddBookmarkComponent implements OnInit, OnDestroy {
   @Input() isOpen: boolean = false;
   @Output() closeModal = new EventEmitter<void>();
-  @Output() saveBookmark = new EventEmitter<any>();
+  @Output() saveBookmark = new EventEmitter<Bookmark>();
 
   bookmarkForm: FormGroup;
   selectedIcon: string = 'fa-bookmark';
   collections: Collection[] = [];
   sortedCollections: Collection[] = [];
+  loading = false;
+  error: string | null = null;
 
   // Available icons for picker
   availableIcons = FONT_AWESOME_ICONS;
 
+  private destroy$ = new Subject<void>();
+
   constructor(
     private fb: FormBuilder,
-    private collectionService: CollectionService
+    private collectionsService: CollectionsService,
+    private bookmarksService: BookmarksService
   ) {
     this.bookmarkForm = this.fb.group({
       collectionId: ['', Validators.required],
@@ -37,49 +44,101 @@ export class AddBookmarkComponent implements OnInit {
     this.loadCollections();
   }
 
-  loadCollections(): void {
-    this.collectionService.getCollections().subscribe(collections => {
-      this.collections = collections;
-      // Sort collections by name in ascending order
-      this.sortedCollections = [...collections].sort((a, b) => 
-        a.Name.toLowerCase().localeCompare(b.Name.toLowerCase())
-      );
-    });
+  ngOnDestroy(): void {
+    this.destroy$.next();
+    this.destroy$.complete();
   }
 
+  /**
+   * Load collections from the service
+   */
+  loadCollections(): void {
+    this.loading = true;
+    this.error = null;
+
+    this.collectionsService.getCollections()
+      .pipe(takeUntil(this.destroy$))
+      .subscribe({
+        next: (collections) => {
+          this.collections = collections;
+          // Sort collections by name in ascending order
+          this.sortedCollections = [...collections].sort((a, b) => 
+            a.name.toLowerCase().localeCompare(b.name.toLowerCase())
+          );
+          this.loading = false;
+        },
+        error: (error) => {
+          console.error('Error loading collections:', error);
+          this.error = 'Failed to load collections. Please try again.';
+          this.loading = false;
+        }
+      });
+  }
+
+  /**
+   * Open modal and reset form
+   */
   openModal(): void {
     this.isOpen = true;
     this.bookmarkForm.reset({ icon: 'fa-bookmark' });
     this.selectedIcon = 'fa-bookmark';
+    this.error = null;
   }
 
+  /**
+   * Close modal
+   */
   close(): void {
     this.isOpen = false;
     this.closeModal.emit();
   }
 
+  /**
+   * Handle icon selection
+   */
   onIconSelected(icon: string): void {
     this.selectedIcon = icon;
     this.bookmarkForm.patchValue({ icon });
   }
 
+  /**
+   * Save bookmark
+   */
   save(): void {
     if (this.bookmarkForm.valid) {
+      const formValue = this.bookmarkForm.value;
       const selectedCollection = this.collections.find(
-        col => col.Name === this.bookmarkForm.value.collectionId
+        col => col.name === formValue.collectionId
       );
 
-      const bookmarkData = {
-        Name: this.bookmarkForm.value.name,
-        Url: this.bookmarkForm.value.url,
-        Icon: this.bookmarkForm.value.icon,
-        IsFav: false,
-        CreatedDate: new Date().toISOString().split('T')[0],
-        CollectionName: this.bookmarkForm.value.collectionId
+      if (!selectedCollection) {
+        this.error = 'Selected collection not found.';
+        return;
+      }
+
+      const bookmarkData: Omit<Bookmark, 'bookmarkId' | 'createdBy'> = {
+        collectionId: selectedCollection.collectionId,
+        name: formValue.name,
+        url: formValue.url,
+        icon: formValue.icon,
+        isFav: false,
+        createdDate: new Date().toISOString(),
+        collectionName: selectedCollection.name
       };
-      
-      this.saveBookmark.emit(bookmarkData);
-      this.close();
+
+      this.bookmarksService.createBookmark(bookmarkData)
+        .pipe(takeUntil(this.destroy$))
+        .subscribe({
+          next: (newBookmark) => {
+            console.log('Bookmark created successfully:', newBookmark);
+            this.saveBookmark.emit(newBookmark);
+            this.close();
+          },
+          error: (error) => {
+            console.error('Error creating bookmark:', error);
+            this.error = 'Failed to create bookmark. Please try again.';
+          }
+        });
     }
   }
 }
