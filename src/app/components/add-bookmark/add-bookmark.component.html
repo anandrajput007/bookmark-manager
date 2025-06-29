@@ -21,8 +21,8 @@
           formControlName="collectionId">
           <option value="">Choose a collection...</option>
           <option *ngFor="let collection of sortedCollections" 
-                  [value]="collection.Name">
-            {{ collection.Name }}
+                  [value]="collection.name">
+            {{ collection.name }}
           </option>
         </select>
         <div class="error-message" *ngIf="bookmarkForm.get('collectionId')?.invalid && bookmarkForm.get('collectionId')?.touched">

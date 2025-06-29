@@ -133,3 +133,61 @@
     }
   }
 }
+
+/* Loading and Error States */
+.loading-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 200px;
+}
+
+.error-container {
+  padding: 2rem;
+  text-align: center;
+}
+
+.alert {
+  border-radius: 8px;
+  border: none;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.btn-outline-danger {
+  border-color: #dc3545;
+  color: #dc3545;
+  
+  &:hover {
+    background-color: #dc3545;
+    border-color: #dc3545;
+    color: white;
+  }
+}
+
+/* Bookmark Count Styling */
+.bookmark-count {
+  color: #6b7280;
+  font-size: 0.875rem;
+  margin-left: 0.5rem;
+}
+
+/* Bookmark URL Link */
+.bookmark-url {
+  color: #6b7280;
+  text-decoration: none;
+  margin-left: 0.5rem;
+  transition: color 0.2s;
+  
+  &:hover {
+    color: rgb(255, 212, 59);
+  }
+}
+
+/* Card Title with Bookmark Count */
+.card-title {
+  margin-bottom: 0.25rem !important;
+}
+
+.text-muted {
+  font-size: 0.75rem;
+}
