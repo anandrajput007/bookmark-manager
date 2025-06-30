@@ -1,0 +1,13 @@
+<div class="toaster-container" *ngIf="show" [ngClass]="getToasterClass()">
+  <div class="toaster-content">
+    <div class="toaster-icon">
+      <i class="fa" [ngClass]="getIconClass()"></i>
+    </div>
+    <div class="toaster-message">
+      {{ config.message }}
+    </div>
+    <div class="toaster-close" (click)="close()">
+      <i class="fa fa-times"></i>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,7 @@
+<div class="toaster-container-wrapper">
+  <aj-toaster 
+    *ngFor="let toaster of toasters; trackBy: trackByToasterId"
+    [config]="toaster"
+    [show]="toaster.show">
+  </aj-toaster>
+</div> 

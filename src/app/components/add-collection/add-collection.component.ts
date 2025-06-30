@@ -12,7 +12,7 @@ import { Subject, takeUntil } from 'rxjs';
 export class AddCollectionComponent implements OnDestroy {
   @Input() isOpen: boolean = false;
   @Output() closeModal = new EventEmitter<void>();
-  @Output() saveCollection = new EventEmitter<Collection>();
+  @Output() saveCollection = new EventEmitter<any>();
 
   collectionForm: FormGroup;
   selectedIcon: string = 'fa-folder';
@@ -43,7 +43,7 @@ export class AddCollectionComponent implements OnDestroy {
    */
   openModal(): void {
     this.isOpen = true;
-    this.collectionForm.reset({ icon: 'fa-folder' });
+    this.collectionForm.reset({ name: '', icon: 'fa-folder' });
     this.selectedIcon = 'fa-folder';
     this.error = null;
   }
@@ -53,6 +53,8 @@ export class AddCollectionComponent implements OnDestroy {
    */
   close(): void {
     this.isOpen = false;
+    this.collectionForm.reset({ name: '', icon: 'fa-folder' });
+    this.selectedIcon = 'fa-folder';
     this.closeModal.emit();
   }
 
@@ -70,27 +72,14 @@ export class AddCollectionComponent implements OnDestroy {
   save(): void {
     if (this.collectionForm.valid) {
       const formValue = this.collectionForm.value;
-      
-      const collectionData: Omit<Collection, 'collectionId' | 'bookmarkCount' | 'bookmarks' | 'createdBy'> = {
+      const collectionData = {
         name: formValue.name,
         icon: formValue.icon,
-        createdDate: new Date().toISOString(),
-        isFav: false
+        isFav: false,
+        createdBy: 1 // Default user ID, you can make this dynamic
       };
-
-      this.collectionsService.createCollection(collectionData)
-        .pipe(takeUntil(this.destroy$))
-        .subscribe({
-          next: (newCollection) => {
-            console.log('Collection created successfully:', newCollection);
-            this.saveCollection.emit(newCollection);
-            this.close();
-          },
-          error: (error) => {
-            console.error('Error creating collection:', error);
-            this.error = 'Failed to create collection. Please try again.';
-          }
-        });
+      this.saveCollection.emit(collectionData); // Just emit the data, don't call the API
+      this.close();
     }
   }
 }

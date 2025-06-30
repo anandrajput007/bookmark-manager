@@ -15,6 +15,8 @@ import { AddCollectionComponent } from './components/add-collection/add-collecti
 import { AjIconPickerComponent } from './aj-components/aj-icon-picker/aj-icon-picker.component';
 import { AjModalComponent } from './aj-components/aj-modal/aj-modal.component';
 import { AddBookmarkComponent } from './components/add-bookmark/add-bookmark.component';
+import { AjToasterComponent } from './aj-components/aj-toaster/aj-toaster.component';
+import { ToasterContainerComponent } from './components/toaster-container/toaster-container.component';
 
 @NgModule({
   declarations: [
@@ -25,7 +27,9 @@ import { AddBookmarkComponent } from './components/add-bookmark/add-bookmark.com
     AddCollectionComponent,
     AjIconPickerComponent,
     AjModalComponent,
-    AddBookmarkComponent
+    AddBookmarkComponent,
+    AjToasterComponent,
+    ToasterContainerComponent
   ],
   imports: [
     BrowserModule,

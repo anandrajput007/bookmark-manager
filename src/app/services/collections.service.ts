@@ -74,8 +74,13 @@ export class CollectionsService {
   /**
    * Create a new collection
    */
-  createCollection(collection: Omit<Collection, 'collectionId' | 'bookmarkCount' | 'bookmarks' | 'createdBy'>): Observable<Collection> {
-    return this.http.post<Collection>(`${this.apiUrl}/create`, collection).pipe(
+  createCollection(collection: {
+    name: string;
+    icon: string;
+    isFav: boolean;
+    createdBy: number;
+  }): Observable<Collection> {
+    return this.http.post<Collection>(`${this.apiUrl}`, collection).pipe(
       tap(newCollection => {
         const currentCollections = this.collectionsSubject.value;
         this.collectionsSubject.next([...currentCollections, newCollection]);

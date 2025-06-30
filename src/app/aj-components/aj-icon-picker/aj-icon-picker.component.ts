@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { Component, EventEmitter, Input, Output, OnChanges, SimpleChanges } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 
 @Component({
@@ -6,7 +6,7 @@ import { FormBuilder, FormGroup } from '@angular/forms';
   templateUrl: './aj-icon-picker.component.html',
   styleUrls: ['./aj-icon-picker.component.scss']
 })
-export class AjIconPickerComponent {
+export class AjIconPickerComponent implements OnChanges {
   @Input() data: string[] = [];
   @Input() enableNavigation: boolean = true;
   @Input() initialValue: string = '';
@@ -32,6 +32,12 @@ export class AjIconPickerComponent {
 
   ngOnInit(): void {
     if (this.initialValue) {
+      this.selectedIcon = this.initialValue;
+    }
+  }
+
+  ngOnChanges(changes: SimpleChanges): void {
+    if (changes['initialValue'] && !changes['initialValue'].firstChange) {
       this.selectedIcon = this.initialValue;
     }
   }
