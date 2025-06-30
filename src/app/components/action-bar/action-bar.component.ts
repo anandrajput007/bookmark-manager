@@ -1,6 +1,7 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { CollectionsService, Collection, Bookmark } from '../../services/collections.service';
 import { ViewModeService, ViewMode } from '../../services/view-mode.service';
+import { ToasterService } from '../../services/toaster.service';
 import { Subject, takeUntil } from 'rxjs';
 
 @Component({
@@ -17,7 +18,8 @@ export class ActionBarComponent implements OnInit, OnDestroy {
 
   constructor(
     private collectionsService: CollectionsService,
-    private viewModeService: ViewModeService
+    private viewModeService: ViewModeService,
+    private toasterService: ToasterService
   ) {}
 
   ngOnInit(): void {
@@ -75,6 +77,7 @@ export class ActionBarComponent implements OnInit, OnDestroy {
     console.log('Bookmark created successfully:', bookmarkData);
     // Refresh collections to show the new bookmark
     this.collectionsService.refreshCollections();
+    this.toasterService.success('Bookmark created successfully!');
     this.closeAddBookmarkModal();
   }
 
@@ -95,8 +98,26 @@ export class ActionBarComponent implements OnInit, OnDestroy {
   /**
    * Handle collection save
    */
-  onSaveCollection(collectionData: Collection): void {
-    console.log('Collection created successfully:', collectionData);
-    this.closeAddCollectionModal();
+  onSaveCollection(collectionData: any): void {
+    const collectionPayload = {
+      name: collectionData.name,
+      icon: collectionData.icon,
+      isFav: collectionData.isFav || false,
+      createdBy: 1 // Default user ID, you can make this dynamic
+    };
+
+    this.collectionsService.createCollection(collectionPayload)
+      .pipe(takeUntil(this.destroy$))
+      .subscribe({
+        next: (newCollection) => {
+          console.log('Collection created successfully:', newCollection);
+          this.toasterService.success('Collection created successfully!');
+          this.closeAddCollectionModal();
+        },
+        error: (error) => {
+          console.error('Error creating collection:', error);
+          this.toasterService.error('Failed to create collection. Please try again.');
+        }
+      });
   }
 }
