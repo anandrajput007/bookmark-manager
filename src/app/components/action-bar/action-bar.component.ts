@@ -1,5 +1,6 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { CollectionsService, Collection, Bookmark } from '../../services/collections.service';
+import { BookmarksService } from '../../services/bookmarks.service';
 import { ViewModeService, ViewMode } from '../../services/view-mode.service';
 import { ToasterService } from '../../services/toaster.service';
 import { Subject, takeUntil } from 'rxjs';
@@ -18,6 +19,7 @@ export class ActionBarComponent implements OnInit, OnDestroy {
 
   constructor(
     private collectionsService: CollectionsService,
+    private bookmarksService: BookmarksService,
     private viewModeService: ViewModeService,
     private toasterService: ToasterService
   ) {}
@@ -73,12 +75,28 @@ export class ActionBarComponent implements OnInit, OnDestroy {
   /**
    * Handle bookmark save
    */
-  onSaveBookmark(bookmarkData: Bookmark): void {
-    console.log('Bookmark created successfully:', bookmarkData);
-    // Refresh collections to show the new bookmark
-    this.collectionsService.refreshCollections();
-    this.toasterService.success('Bookmark created successfully!');
-    this.closeAddBookmarkModal();
+  onSaveBookmark(bookmarkData: any): void {
+    const bookmarkPayload = {
+      collectionId: bookmarkData.collectionId,
+      name: bookmarkData.name,
+      url: bookmarkData.url,
+      icon: bookmarkData.icon,
+      isFav: bookmarkData.isFav || false,
+      createdBy: 1 // Default user ID, you can make this dynamic
+    };
+
+    this.bookmarksService.createBookmark(bookmarkPayload)
+      .pipe(takeUntil(this.destroy$))
+      .subscribe({
+        next: (newBookmark) => {
+          this.toasterService.success('Bookmark created successfully!');
+          this.collectionsService.refreshCollections();
+          this.closeAddBookmarkModal();
+        },
+        error: (error) => {
+          this.toasterService.error('Failed to create bookmark. Please try again.');
+        }
+      });
   }
 
   /**
