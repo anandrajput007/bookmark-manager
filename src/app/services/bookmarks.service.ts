@@ -45,8 +45,15 @@ export class BookmarksService {
   /**
    * Create a new bookmark
    */
-  createBookmark(bookmark: Omit<Bookmark, 'bookmarkId' | 'createdBy'>): Observable<Bookmark> {
-    return this.http.post<Bookmark>(`${this.apiUrl}/create`, bookmark).pipe(
+  createBookmark(bookmark: {
+    collectionId: number;
+    name: string;
+    url: string;
+    icon: string;
+    isFav: boolean;
+    createdBy: number;
+  }): Observable<Bookmark> {
+    return this.http.post<Bookmark>(`${this.apiUrl}`, bookmark).pipe(
       tap(newBookmark => {
         const currentBookmarks = this.bookmarksSubject.value;
         this.bookmarksSubject.next([...currentBookmarks, newBookmark]);

@@ -13,7 +13,7 @@ import { Subject, takeUntil } from 'rxjs';
 export class AddBookmarkComponent implements OnInit, OnDestroy {
   @Input() isOpen: boolean = false;
   @Output() closeModal = new EventEmitter<void>();
-  @Output() saveBookmark = new EventEmitter<Bookmark>();
+  @Output() saveBookmark = new EventEmitter<any>();
 
   bookmarkForm: FormGroup;
   selectedIcon: string = 'fa-bookmark';
@@ -116,29 +116,16 @@ export class AddBookmarkComponent implements OnInit, OnDestroy {
         return;
       }
 
-      const bookmarkData: Omit<Bookmark, 'bookmarkId' | 'createdBy'> = {
+      const bookmarkData = {
         collectionId: selectedCollection.collectionId,
         name: formValue.name,
         url: formValue.url,
         icon: formValue.icon,
         isFav: false,
-        createdDate: new Date().toISOString(),
-        collectionName: selectedCollection.name
+        createdDate: new Date().toISOString()
       };
-
-      this.bookmarksService.createBookmark(bookmarkData)
-        .pipe(takeUntil(this.destroy$))
-        .subscribe({
-          next: (newBookmark) => {
-            console.log('Bookmark created successfully:', newBookmark);
-            this.saveBookmark.emit(newBookmark);
-            this.close();
-          },
-          error: (error) => {
-            console.error('Error creating bookmark:', error);
-            this.error = 'Failed to create bookmark. Please try again.';
-          }
-        });
+      this.saveBookmark.emit(bookmarkData);
+      this.close();
     }
   }
 }
